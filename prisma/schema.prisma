@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model GalleryItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  category  String // "event" | "corporate" | "vip" | "venue"
+  imageUrl  String // Cloudinary secure_url
+  publicId  String // Cloudinary public_id (for deletion)
+  assetType String   @default("image") // "image" | "video"
+  featured  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Inquiry {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  phone     String?
+  service   String
+  message   String
+  status    String   @default("NEW") // "NEW" | "READ" | "CONTACTED"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+
+/* ───────────────────────────────────────────────
+   Tailwind v4 – Custom Design Tokens
+   ─────────────────────────────────────────────── */
+@theme inline {
+  --color-bg: #0A0A0A;
+  --color-surface: #111111;
+  --color-surface-alt: #1A1A1A;
+  --color-border: #2A2A2A;
+  --color-gold: #C9922A;
+  --color-gold-dark: #8C6A1E;
+  --color-gold-light: #D4A94F;
+  --color-text: #F0EDE8;
+  --color-muted: #6B6B6B;
+  --color-status-green: #2D6A4F;
+
+  --font-headline: "Bebas Neue", "Barlow Condensed", sans-serif;
+  --font-body: "DM Sans", "Sora", sans-serif;
+}
+
+/* ───────────────────────────────────────────────
+   Global Resets
+   ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-bg);
+}
+
+/* ───────────────────────────────────────────────
+   Custom Scrollbar
+   ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* ───────────────────────────────────────────────
+   Utility Classes
+   ─────────────────────────────────────────────── */
+
+/* Dot-grid noise texture overlay */
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* Dot grid background */
+.dot-grid {
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Gold horizontal rule divider */
+.gold-divider {
+  height: 1px;
+  background: var(--color-gold);
+  opacity: 0.4;
+  border: none;
+}
+
+/* Corner bracket decorations */
+.bracket-corners {
+  position: relative;
+}
+
+.bracket-corners::before,
+.bracket-corners::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--color-gold);
+  border-style: solid;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.bracket-corners::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+
+.bracket-corners::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Accent labels */
+.label-accent {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ───────────────────────────────────────────────
+   Animations
+   ─────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* ───────────────────────────────────────────────
+   Form Resets
+   ─────────────────────────────────────────────── */
+input,
+textarea,
+select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-bottom-color: var(--color-gold);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-muted);
+}
+
+select option {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
